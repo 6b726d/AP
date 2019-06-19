@@ -29,6 +29,7 @@ void BlockTranspose_Kernel(float *A_elements, int A_width, int A_height) {
 	int baseIdx = blockIdx.x * BLOCK_SIZE + threadIdx.x;
 	baseIdx += (blockIdx.y * BLOCK_SIZE + threadIdx.y) * A_width;
 	blockA[threadIdx.y][threadIdx.x] = A_elements[baseIdx];
+	__syncthreads();
 	A_elements[baseIdx] = blockA[threadIdx.x][threadIdx.y];
 }
 
